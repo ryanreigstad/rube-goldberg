@@ -23,7 +23,7 @@ public class Rope extends ComplexBody {
 		for (int i = 0; i < segments; i++) {
 			Vector3f next = new Vector3f(last.x + xd, last.y + yd, last.z + zd);
 			Vector3f cur = new Vector3f((next.x + last.x) / 2, (next.y + last.y) / 2, (next.z + last.z) / 2);
-			bodies.add(new Cylinder(cur, radius, l, 1, 0.5f));
+			bodies.add(new Cylinder(cur, radius, l, 0.1f, 0.5f));
 			if (i > 0) {
 				RigidBody lastBody = bodies.get(i - 1).getBody();
 				RigidBody currBody = bodies.get(i).getBody();

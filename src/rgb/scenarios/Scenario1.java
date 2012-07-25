@@ -108,7 +108,7 @@ public class Scenario1 {
 	public void simulate(int steps) {
 		this.displayWorld();
 		for (int i = 0; i < steps; i++) {
-			if (i == 10) {
+			if (i == 30) {
 				this.clamp.extend(.2f);
 				System.out.printf("\tClamp released\n");
 			}
@@ -119,10 +119,6 @@ public class Scenario1 {
 	}
 
 	public void displayWorld() {
-//		Vector3f loc = this.ball.getLocation();
-//		System.out.printf("ball's (x,y): (%f, %f)", loc.x, loc.y);
-//		loc = this.box.getLocation();
-//		System.out.printf("\tbox's (x,y):  (%f, %f)\n", loc.x, loc.y);
 		GLDrawer.drawScene(this.world);
 	}
 }

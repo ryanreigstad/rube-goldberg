@@ -5,6 +5,7 @@ import javax.vecmath.Vector3f;
 import org.lwjgl.LWJGLException;
 
 import rgb.CollisionEventDispatcher;
+import rgb.bodies.Box;
 import rgb.bodies.Cube;
 import rgb.bodies.Cylinder;
 import rgb.bodies.PhysicalBody;
@@ -20,6 +21,7 @@ import com.bulletphysics.collision.dispatch.DefaultCollisionConfiguration;
 import com.bulletphysics.collision.shapes.StaticPlaneShape;
 import com.bulletphysics.dynamics.DiscreteDynamicsWorld;
 import com.bulletphysics.dynamics.RigidBody;
+import com.bulletphysics.dynamics.constraintsolver.HingeConstraint;
 import com.bulletphysics.dynamics.constraintsolver.Point2PointConstraint;
 import com.bulletphysics.dynamics.constraintsolver.SequentialImpulseConstraintSolver;
 import com.bulletphysics.linearmath.DefaultMotionState;
@@ -29,10 +31,10 @@ public class Scenario2 {
 	public static void run(int steps) {
 		try {
 			GLDrawer.init(900, 600, 45f);
-			GLDrawer.setCamera(new Camera(new Vector3f(5, 5, 40), null));
+			GLDrawer.setCamera(new Camera(new Vector3f(5, 0, 40), null));
 		} catch (LWJGLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.exit(-1);
 		}
 		new Scenario2().simulate(steps);
 		GLDrawer.shutdown();
@@ -41,26 +43,14 @@ public class Scenario2 {
 	private Scenario2() {
 		this.initWorld();
 		this.collisionDispatcher = new CollisionEventDispatcher();
-		
-		Cube anchor = new Cube(new Vector3f(0, 20, 0), 1, 0, 0);
-		Rope rope = new Rope(new Vector3f(0, 20, 0), new Vector3f(10, 20, 0), 0.5f, 50, this.world);
-		Point2PointConstraint anchrope = new Point2PointConstraint(anchor.getBody(), rope.getBodies().get(0).getBody(), new Vector3f(1f, 0, 0), new Vector3f(-0.1f, 0, 0));
-		this.world.addConstraint(anchrope, true);
-		
-		this.sphere = new Sphere(new Vector3f(10, 20, 0), 1, 1, 0.5f);
-		Point2PointConstraint ropesphe = new Point2PointConstraint(this.sphere.getBody(), rope.getBodies().get(49).getBody(), new Vector3f(-1f, 0, 0), new Vector3f(0.1f, 0, 0));
-		this.world.addConstraint(ropesphe, true);
-		
-		this.world.addRigidBody(new Cylinder(new Vector3f(1, 8, 0), 2, 100, 0, 1).getBody());
-		
-		this.world.addRigidBody(anchor.getBody());
-		this.world.addRigidBody(this.sphere.getBody());
-		for (PhysicalBody pb : rope.getBodies())
-			this.world.addRigidBody(pb.getBody());
 	}
 
 	private DiscreteDynamicsWorld world;
-	private Sphere sphere;
+	private Cylinder rotor;
+	private HingeConstraint motor;
+	private Cube weight;
+	private Cylinder[] pulleys;
+	private Rope rope;
 	private CollisionEventDispatcher collisionDispatcher;
 
 	private void initWorld() {
@@ -70,22 +60,86 @@ public class Scenario2 {
 				-1024), new Vector3f(1024, 1024, 1024), 1024),
 				new SequentialImpulseConstraintSolver(), collisionConfig);
 		this.world.setGravity(new Vector3f(0, -9.8f, 0));
-//		this.world.addRigidBody(this.makeGround());
+		
+		initGround();
+		initRotor();
+		initWeight();
+		initRope();
+		initPulleys();
 	}
-
-	private RigidBody makeGround() {
-		Transform location = new Transform() {{
-				this.setIdentity();
-				this.origin.set(0, -1, 0);
-			}};
+	
+	private void initGround() {
+		Transform location = new Transform() {{this.setIdentity(); this.origin.set(0, -30, 0);}};
 		DefaultMotionState motion = new DefaultMotionState(location);
-		return new RigidBody(0, motion, new StaticPlaneShape(new Vector3f(0, 1, 0), 1));
+		this.world.addRigidBody(new RigidBody(0, motion, new StaticPlaneShape(new Vector3f(0, 1, 0), 1)));
+	}
+	
+	private void initRotor() {
+		this.rotor = new Cylinder(new Vector3f(-5, 0, 0), 2, 10, 1, 0.9f);
+		this.motor = new HingeConstraint(this.rotor.getBody(), new Vector3f(), new Vector3f(0, 0, 1));
+		
+		this.world.addRigidBody(this.rotor.getBody());
+		this.world.addConstraint(this.motor);
+	}
+	
+	private void initWeight() {
+		this.weight = new Cube(new Vector3f(15, 0, 0), 2, 1, 1);
+		this.world.addRigidBody(this.weight.getBody());
+	}
+	
+	private void initRope() {
+		this.rope = new Rope(
+				new Vector3f(-5, 2, 0),
+				new Vector3f(15, 2, 0),
+				0.5f, 80, this.world);
+		
+		Point2PointConstraint begin = new Point2PointConstraint(
+				this.rotor.getBody(),
+				this.rope.getBodies().get(0).getBody(),
+				new Vector3f(0, 2, 0),
+				new Vector3f(0, -0.25f, 0));
+		
+		Point2PointConstraint end = new Point2PointConstraint(
+				this.weight.getBody(),
+				this.rope.getBodies().get(79).getBody(),
+				new Vector3f(0, 2, 0),
+				new Vector3f(0, 0.25f, 0));
+		
+		for (PhysicalBody pb : this.rope.getBodies()) {
+			this.world.addRigidBody(pb.getBody());
+		}
+		this.world.addConstraint(begin);
+		this.world.addConstraint(end);
+	}
+	
+	private void initPulleys() {
+		this.pulleys = new Cylinder[3];
+		
+		float[] xs = new float[] {2, 6, 10};
+		float[] ys = new float[] {-5, 5, -5};
+		
+		for (int i = 0; i < 3; i++) {
+			this.pulleys[i] = new Cylinder(new Vector3f(xs[i], ys[i], 0), 3, 10, 0, 0.5f);
+			this.pulleys[i].getBody().setFriction(0);
+			
+			this.world.addRigidBody(this.pulleys[i].getBody());
+		}
 	}
 
 	public void simulate(int steps) {
 		this.displayWorld();
 		for (int i = 0; i < steps; i++) {
-			this.world.stepSimulation(1 / 60f, 1);
+			if (i > 400 && this.pulleys[0].getLocation().y < 2) {
+				this.pulleys[0].translate(new Vector3f(0, 0.01f, 0));
+				this.pulleys[1].translate(new Vector3f(0, -0.01f, 0));
+				this.pulleys[2].translate(new Vector3f(0, 0.01f, 0));
+			}
+			
+			if (i == 1200) {
+				this.motor.enableAngularMotor(true, 1.0f, 1.0f);
+			}
+			
+			this.world.stepSimulation(1 / 60f, 5);
 			this.collisionDispatcher.checkCollisions(this.world.getDispatcher());
 			this.displayWorld();
 		}
