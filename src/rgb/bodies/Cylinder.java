@@ -3,8 +3,6 @@ package rgb.bodies;
 import javax.vecmath.Vector3f;
 
 import com.bulletphysics.collision.shapes.CollisionShape;
-import com.bulletphysics.collision.shapes.CylinderShape;
-import com.bulletphysics.collision.shapes.CylinderShapeX;
 import com.bulletphysics.collision.shapes.CylinderShapeZ;
 import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.linearmath.MotionState;

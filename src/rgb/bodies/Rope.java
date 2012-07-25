@@ -14,30 +14,35 @@ public class Rope extends ComplexBody {
 	public Rope(Vector3f startLocation, Vector3f endLocation, float radius, int segments, DynamicsWorld world) {
 		bodies = new ArrayList<>();
 		
+		makeSegments(startLocation, endLocation, radius, segments, world);
+	}
+	
+	private ArrayList<PhysicalBody> bodies;
+	
+	private void makeSegments(Vector3f startLocation, Vector3f endLocation, float radius, int segments, DynamicsWorld world) {
 		float xd = (endLocation.x - startLocation.x) / segments;
 		float yd = (endLocation.y - startLocation.y) / segments;
 		float zd = (endLocation.z - startLocation.z) / segments;
-		float l = (float) Math.sqrt(xd * xd + yd * yd + zd * zd);
+		float segmentLength = (float) Math.sqrt(xd * xd + yd * yd + zd * zd);
 		
-		Vector3f last = new Vector3f(startLocation);
+		Vector3f lastEnd = new Vector3f(startLocation);
 		for (int i = 0; i < segments; i++) {
-			Vector3f next = new Vector3f(last.x + xd, last.y + yd, last.z + zd);
-			Vector3f cur = new Vector3f((next.x + last.x) / 2, (next.y + last.y) / 2, (next.z + last.z) / 2);
-			bodies.add(new Cylinder(cur, radius, l, 0.1f, 0.5f));
+			Vector3f nextEnd = new Vector3f(lastEnd.x + xd, lastEnd.y + yd, lastEnd.z + zd);
+			
+			Vector3f midpoint = new Vector3f((nextEnd.x + lastEnd.x) / 2, (nextEnd.y + lastEnd.y) / 2, (nextEnd.z + lastEnd.z) / 2);
+			bodies.add(new Cylinder(midpoint, radius, segmentLength, 0.1f, 0.5f));
+			
 			if (i > 0) {
+				// connect the last segment with this segment
 				RigidBody lastBody = bodies.get(i - 1).getBody();
 				RigidBody currBody = bodies.get(i).getBody();
 				
 				Point2PointConstraint joint = new Point2PointConstraint(lastBody, currBody, new Vector3f(xd, yd, zd), new Vector3f(-xd, -yd, -zd));
-//				lastBody.addConstraintRef(joint);
-//				currBody.addConstraintRef(joint);
 				world.addConstraint(joint, true);
 			}
-			last = next;
+			lastEnd = nextEnd;
 		}
 	}
-	
-	private ArrayList<PhysicalBody> bodies;
 
 	@Override
 	public List<PhysicalBody> getBodies() {

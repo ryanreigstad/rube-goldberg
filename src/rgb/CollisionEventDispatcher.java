@@ -37,20 +37,27 @@ public class CollisionEventDispatcher {
 		for (int i = 0; i < dispatch.getNumManifolds(); i++) {
 			PersistentManifold manifold = dispatch.getManifoldByIndexInternal(i);
 			
-			for (int j = manifold.getNumContacts() - 1; j >= 0; j--) {
-				ManifoldPoint point = manifold.getContactPoint(j);
-				if (point.getDistance() < 0) {
-					DataPair<Object, Object> pair = new DataPair<>(manifold.getBody0(), manifold.getBody1());
-					newContacts.add(pair);
-					if (prevContacts.contains(pair))
-						this.fireContact(makeEvent(manifold, point));
-					else
-						this.fireCollide(makeEvent(manifold, point));
-					break;
-				}
+			DataPair<Object, Object> contact = checkManifoldPoints(manifold);
+			if (contact != null) {
+				newContacts.add(contact);
 			}
 		}
 		prevContacts = newContacts;
+	}
+	
+	private DataPair<Object, Object> checkManifoldPoints(PersistentManifold manifold) {
+		for (int j = manifold.getNumContacts() - 1; j >= 0; j--) {
+			ManifoldPoint point = manifold.getContactPoint(j);
+			if (point.getDistance() < 0) {
+				DataPair<Object, Object> pair = new DataPair<>(manifold.getBody0(), manifold.getBody1());
+				if (prevContacts.contains(pair))
+					this.fireContact(makeEvent(manifold, point));
+				else
+					this.fireCollide(makeEvent(manifold, point));
+				return pair;
+			}
+		}
+		return null;
 	}
 	
 	private CollisionEvent makeEvent(PersistentManifold manifold, ManifoldPoint point) {

@@ -5,12 +5,10 @@ import javax.vecmath.Vector3f;
 import org.lwjgl.LWJGLException;
 
 import rgb.CollisionEventDispatcher;
-import rgb.bodies.Box;
 import rgb.bodies.Cube;
 import rgb.bodies.Cylinder;
 import rgb.bodies.PhysicalBody;
 import rgb.bodies.Rope;
-import rgb.bodies.Sphere;
 import rgb.draw.Camera;
 import rgb.draw.GLDrawer;
 
@@ -69,7 +67,7 @@ public class Scenario2 {
 	}
 	
 	private void initGround() {
-		Transform location = new Transform() {{this.setIdentity(); this.origin.set(0, -30, 0);}};
+		Transform location = new Transform() {{this.setIdentity(); this.origin.set(0, -20, 0);}};
 		DefaultMotionState motion = new DefaultMotionState(location);
 		this.world.addRigidBody(new RigidBody(0, motion, new StaticPlaneShape(new Vector3f(0, 1, 0), 1)));
 	}
@@ -88,10 +86,11 @@ public class Scenario2 {
 	}
 	
 	private void initRope() {
+		int ropeSegments = 80;
 		this.rope = new Rope(
 				new Vector3f(-5, 2, 0),
 				new Vector3f(15, 2, 0),
-				0.5f, 80, this.world);
+				0.5f, ropeSegments, this.world);
 		
 		Point2PointConstraint begin = new Point2PointConstraint(
 				this.rotor.getBody(),
@@ -101,7 +100,7 @@ public class Scenario2 {
 		
 		Point2PointConstraint end = new Point2PointConstraint(
 				this.weight.getBody(),
-				this.rope.getBodies().get(79).getBody(),
+				this.rope.getBodies().get(ropeSegments - 1).getBody(),
 				new Vector3f(0, 2, 0),
 				new Vector3f(0, 0.25f, 0));
 		
@@ -129,13 +128,9 @@ public class Scenario2 {
 	public void simulate(int steps) {
 		this.displayWorld();
 		for (int i = 0; i < steps; i++) {
-			if (i > 400 && this.pulleys[0].getLocation().y < 2) {
-				this.pulleys[0].translate(new Vector3f(0, 0.01f, 0));
-				this.pulleys[1].translate(new Vector3f(0, -0.01f, 0));
-				this.pulleys[2].translate(new Vector3f(0, 0.01f, 0));
-			}
-			
-			if (i == 1200) {
+			this.updatePulleys(i);
+			if (i == 1300) {
+				// turn on the motor
 				this.motor.enableAngularMotor(true, 1.0f, 1.0f);
 			}
 			
@@ -144,7 +139,15 @@ public class Scenario2 {
 			this.displayWorld();
 		}
 	}
-
+	
+	private void updatePulleys(int i) {
+		if (i > 400 && this.pulleys[0].getLocation().y < 2) {
+			this.pulleys[0].translate(new Vector3f(0, 0.01f, 0));
+			this.pulleys[1].translate(new Vector3f(0, -0.01f, 0));
+			this.pulleys[2].translate(new Vector3f(0, 0.01f, 0));
+		}
+	}
+	
 	public void displayWorld() {
 		GLDrawer.drawScene(this.world);
 	}
