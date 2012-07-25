@@ -13,11 +13,7 @@ import com.bulletphysics.linearmath.Transform;
 
 public abstract class PhysicalBody implements ICollisionListener {
 
-	public PhysicalBody() {}
-	
-//	public PhysicalBody(float mass, float restitution, float x, float y, float z) {
-//		;
-//	}
+	protected PhysicalBody() {}
 	
 	protected RigidBody body;
 	protected CollisionHandler collisionHandler;
@@ -49,10 +45,10 @@ public abstract class PhysicalBody implements ICollisionListener {
 		this.collisionHandler = handler;
 	}
 	
-	protected static MotionState getDefaultMotion(float x, float y, float z) {
+	protected static MotionState getDefaultMotion(Vector3f loc) {
 		Transform location = new Transform();
 		location.setIdentity();
-		location.origin.set(x, y, z);
+		location.origin.set(loc);
 		return new DefaultMotionState(location);
 	}
 }

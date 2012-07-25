@@ -7,9 +7,11 @@ import javax.vecmath.Vector3f;
 
 public class Clamp extends ComplexBody {
 	
-	public Clamp(float x, float y, float z, float clampWidth) {
-		this.left = new Cube(1, 0, 0, x - (clampWidth / 2f + 0.95f), y, z);
-		this.right = new Cube(1, 0, 0, x + (clampWidth / 2f + 0.95f), y, z);
+	public Clamp(Vector3f location, float clampWidth) {
+		Vector3f l = new Vector3f(location.x - (clampWidth / 2f + 0.95f), location.y, location.z);
+		this.left = new Cube(l, 1, 0, 0);
+		Vector3f r = new Vector3f(location.x + (clampWidth / 2f + 0.95f), location.y, location.z);
+		this.right = new Cube(r, 1, 0, 0);
 	}
 	
 	private Cube left;

@@ -1,7 +1,7 @@
-import rgb.scenarios.Scenario1;
+import rgb.scenarios.*;
 
 public class Main {
 	public static void main(String[] args) {
-		Scenario1.run(300);
+		Scenario2.run(7000);
 	}
 }

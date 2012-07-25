@@ -9,12 +9,8 @@ import com.bulletphysics.linearmath.MotionState;
 
 public class Sphere extends PhysicalBody {
 	
-	public Sphere(float radius, float mass, float restitution) {
-		this(radius, mass, restitution, 0, 0, 0);
-	}
-	
-	public Sphere(float radius, float mass, float restitution, float x, float y, float z) {
-		MotionState motion = getDefaultMotion(x, y, z);
+	public Sphere(Vector3f location, float radius, float mass, float restitution) {
+		MotionState motion = getDefaultMotion(location);
 		CollisionShape shape = new SphereShape(radius);
 		
 		Vector3f inertia = new Vector3f();
