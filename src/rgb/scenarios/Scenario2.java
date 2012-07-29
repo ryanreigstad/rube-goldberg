@@ -73,7 +73,7 @@ public class Scenario2 {
 	}
 	
 	private void initRotor() {
-		this.rotor = new Cylinder(new Vector3f(-5, 0, 0), 2, 10, 1, 0.9f);
+		this.rotor = new Cylinder(new Vector3f(-5, 0, 0), 2, 20, 1, 0.9f);
 		this.motor = new HingeConstraint(this.rotor.getBody(), new Vector3f(), new Vector3f(0, 0, 1));
 		
 		this.world.addRigidBody(this.rotor.getBody());
@@ -86,10 +86,10 @@ public class Scenario2 {
 	}
 	
 	private void initRope() {
-		int ropeSegments = 80;
+		int ropeSegments = 100;
 		this.rope = new Rope(
 				new Vector3f(-5, 2, 0),
-				new Vector3f(15, 2, 0),
+				new Vector3f(20, 2, 0),
 				0.5f, ropeSegments, this.world);
 		
 		Point2PointConstraint begin = new Point2PointConstraint(
@@ -118,7 +118,7 @@ public class Scenario2 {
 		float[] ys = new float[] {-5, 5, -5};
 		
 		for (int i = 0; i < 3; i++) {
-			this.pulleys[i] = new Cylinder(new Vector3f(xs[i], ys[i], 0), 3, 10, 0, 0.5f);
+			this.pulleys[i] = new Cylinder(new Vector3f(xs[i], ys[i], 0), 3, 20, 0, 0.5f);
 			this.pulleys[i].getBody().setFriction(0);
 			
 			this.world.addRigidBody(this.pulleys[i].getBody());
@@ -129,7 +129,7 @@ public class Scenario2 {
 		this.displayWorld();
 		for (int i = 0; i < steps; i++) {
 			this.updatePulleys(i);
-			if (i == 1300) {
+			if (i == 1500) {
 				// turn on the motor
 				this.motor.enableAngularMotor(true, 1.0f, 1.0f);
 			}
@@ -141,7 +141,7 @@ public class Scenario2 {
 	}
 	
 	private void updatePulleys(int i) {
-		if (i > 400 && this.pulleys[0].getLocation().y < 2) {
+		if (i >= 500 && this.pulleys[0].getLocation().y < 2) {
 			this.pulleys[0].translate(new Vector3f(0, 0.01f, 0));
 			this.pulleys[1].translate(new Vector3f(0, -0.01f, 0));
 			this.pulleys[2].translate(new Vector3f(0, 0.01f, 0));
