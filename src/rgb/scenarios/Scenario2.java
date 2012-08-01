@@ -5,10 +5,10 @@ import javax.vecmath.Vector3f;
 import org.lwjgl.LWJGLException;
 
 import rgb.CollisionEventDispatcher;
-import rgb.bodies.Cube;
-import rgb.bodies.Cylinder;
-import rgb.bodies.PhysicalBody;
 import rgb.bodies.Rope;
+import rgb.bodies.primatives.Cube;
+import rgb.bodies.primatives.Cylinder;
+import rgb.bodies.primatives.PrimativeBody;
 import rgb.draw.Camera;
 import rgb.draw.GLDrawer;
 
@@ -104,7 +104,7 @@ public class Scenario2 {
 				new Vector3f(0, 2, 0),
 				new Vector3f(0, 0.25f, 0));
 		
-		for (PhysicalBody pb : this.rope.getBodies()) {
+		for (PrimativeBody pb : this.rope.getBodies()) {
 			this.world.addRigidBody(pb.getBody());
 		}
 		this.world.addConstraint(begin);

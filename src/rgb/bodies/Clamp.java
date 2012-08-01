@@ -17,8 +17,8 @@ public class Clamp extends ComplexBody {
 	private Cube left;
 	private Cube right;
 	
-	public List<PhysicalBody> getBodies() {
-		return Arrays.asList(new PhysicalBody[] {this.left, this.right});
+	public List<PrimativeBody> getBodies() {
+		return Arrays.asList(new PrimativeBody[] {this.left, this.right});
 	}
 	
 	public void extend(float d) {

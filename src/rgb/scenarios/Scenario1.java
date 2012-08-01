@@ -7,10 +7,10 @@ import org.lwjgl.LWJGLException;
 import rgb.CollisionEvent;
 import rgb.CollisionEventDispatcher;
 import rgb.CollisionHandler;
-import rgb.bodies.Box;
-import rgb.bodies.Clamp;
-import rgb.bodies.PhysicalBody;
-import rgb.bodies.Sphere;
+import rgb.bodies.primatives.Box;
+import rgb.bodies.primatives.Clamp;
+import rgb.bodies.primatives.PrimativeBody;
+import rgb.bodies.primatives.Sphere;
 import rgb.draw.Camera;
 import rgb.draw.GLDrawer;
 
@@ -70,7 +70,7 @@ public class Scenario1 {
 		this.collisionDispatcher.addListenerTo(this.box.getBody(), this.box);
 		
 		this.clamp = new Clamp(new Vector3f(0, 10, 0), 1);
-		for (PhysicalBody b : this.clamp.getBodies())
+		for (PrimativeBody b : this.clamp.getBodies())
 			this.world.addRigidBody(b.getBody());
 	}
 

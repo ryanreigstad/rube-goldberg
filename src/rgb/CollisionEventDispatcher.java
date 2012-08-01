@@ -1,9 +1,7 @@
 package rgb;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import rgb.util.DataPair;
 
@@ -12,19 +10,24 @@ import com.bulletphysics.collision.dispatch.CollisionObject;
 import com.bulletphysics.collision.narrowphase.ManifoldPoint;
 import com.bulletphysics.collision.narrowphase.PersistentManifold;
 
-
 public class CollisionEventDispatcher {
 	
 	public CollisionEventDispatcher() {
-		listeners = new HashMap<>();
+		listeners = new ArrayList<>();
 	}
 	
-	private Map<CollisionObject, ICollisionListener> listeners;
+	private List<CollisionObject> listeners;
 	
-	public void addListenerTo(CollisionObject object, ICollisionListener listener) {
+	public void addListener(CollisionObject object) {
+		ICollisionListener listener;
+		if (object.getUserPointer() instanceof ICollisionListener)
+			listener = (ICollisionListener) object.getUserPointer();
+		else
+			throw new IllegalArgumentException("Cannot add CollisionObject as a listener unless the user pointer is a ICollisionListener");
+		
 		if (listener.getCollisionHandler() == null)
 			throw new NullPointerException("ICollisionListener.getCollisionHandler() must not return null");
-		this.listeners.put(object, listener);
+		this.listeners.add(object);
 	}
 	
 	public void removeListenerFor(CollisionObject object) {
@@ -70,16 +73,16 @@ public class CollisionEventDispatcher {
 	}
 	
 	private void fireCollide(CollisionEvent e) {
-		if (this.listeners.containsKey(e.bodyA))
-			this.listeners.get(e.bodyA).getCollisionHandler().onCollide(e);
-		if (this.listeners.containsKey(e.bodyB))
-			this.listeners.get(e.bodyB).getCollisionHandler().onCollide(e);
+		if (this.listeners.contains(e.bodyA))
+			((ICollisionListener) e.bodyA).getCollisionHandler().onCollide(e);
+		if (this.listeners.contains(e.bodyB))
+			((ICollisionListener) e.bodyB).getCollisionHandler().onCollide(e);
 	}
 	
 	private void fireContact(CollisionEvent e) {
-		if (this.listeners.containsKey(e.bodyA))
-			this.listeners.get(e.bodyA).getCollisionHandler().onContact(e);
-		if (this.listeners.containsKey(e.bodyB))
-			this.listeners.get(e.bodyB).getCollisionHandler().onContact(e);
+		if (this.listeners.contains(e.bodyA))
+			((ICollisionListener) e.bodyA).getCollisionHandler().onContact(e);
+		if (this.listeners.contains(e.bodyB))
+			((ICollisionListener) e.bodyB).getCollisionHandler().onContact(e);
 	}
 }

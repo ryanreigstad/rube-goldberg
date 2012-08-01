@@ -4,14 +4,16 @@ import java.util.List;
 
 import javax.vecmath.Vector3f;
 
+import rgb.bodies.primatives.PrimativeBody;
+
 public abstract class ComplexBody {
 	
 	public ComplexBody() {}
 	
-	public abstract List<PhysicalBody> getBodies();
+	public abstract List<PrimativeBody> getBodies();
 	
 	public void translate(Vector3f trans) {
-		for (PhysicalBody body : this.getBodies())
+		for (PrimativeBody body : this.getBodies())
 			body.translate(trans);
 	}
 	

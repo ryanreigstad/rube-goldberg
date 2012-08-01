@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.vecmath.Vector3f;
 
+import rgb.bodies.primatives.Cylinder;
+import rgb.bodies.primatives.PrimativeBody;
+
 import com.bulletphysics.dynamics.DynamicsWorld;
 import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.dynamics.constraintsolver.Point2PointConstraint;
@@ -17,7 +20,7 @@ public class Rope extends ComplexBody {
 		makeSegments(startLocation, endLocation, radius, segments, world);
 	}
 	
-	private ArrayList<PhysicalBody> bodies;
+	private ArrayList<PrimativeBody> bodies;
 	
 	private void makeSegments(Vector3f startLocation, Vector3f endLocation, float radius, int segments, DynamicsWorld world) {
 		float xd = (endLocation.x - startLocation.x) / segments;
@@ -45,7 +48,7 @@ public class Rope extends ComplexBody {
 	}
 
 	@Override
-	public List<PhysicalBody> getBodies() {
+	public List<PrimativeBody> getBodies() {
 		return this.bodies;
 	}
 	

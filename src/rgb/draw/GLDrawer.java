@@ -9,7 +9,6 @@ import org.lwjgl.opengl.DisplayMode;
 
 import com.bulletphysics.collision.dispatch.CollisionObject;
 import com.bulletphysics.dynamics.DynamicsWorld;
-import com.bulletphysics.linearmath.Transform;
 
 public class GLDrawer {
 	private GLDrawer() {
@@ -23,6 +22,8 @@ public class GLDrawer {
 		glLoadIdentity();
 		gluPerspective(fov, windowWidth / windowHeight, 0.01f, 100f);
 		glMatrixMode(GL_MODELVIEW);
+		
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	}
 	
 	private static Camera camera = new Camera();
@@ -37,17 +38,13 @@ public class GLDrawer {
 		glTranslatef(-camera.getLocation().x, -camera.getLocation().y, -camera.getLocation().z);
 		glColor3f(1f, 1f, 1f);
 		
-		glBegin(GL_POINTS);
 		for (CollisionObject obj : world.getCollisionObjectArray()) {
-			Transform trans = obj.getWorldTransform(new Transform());
-			
-			glVertex3f(trans.origin.x, trans.origin.y, trans.origin.z);
+			IRenderable r = (IRenderable) obj.getUserPointer();
+			if (r != null)
+				r.render();
 		}
-		glEnd();
+		
 		Display.update();
-		try {
-			Thread.sleep(1000 / 60);
-		} catch (InterruptedException e) {}
 	}
 	
 	public static void shutdown() {
