@@ -9,7 +9,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Ryan/Documents/Neumont/Summer 2012-Q9/Capstone/rubegoldberg-ws/res/jbullet-20101010/lib/vecmath/vecmath.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ryan/Documents/Neumont/Summer 2012-Q9/Capstone/rubegoldberg-ws/res/lwjgl-2.8.4/jar/lwjgl.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ryan/Documents/Neumont/Summer 2012-Q9/Capstone/rubegoldberg-ws/res/lwjgl-2.8.4/jar/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ryan/Documents/Neumont/Summer 2012-Q9/Capstone/rubegoldberg-ws/res/jbullet-20101010/lib/lwjgl/jar/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/Ryan/Documents/Neumont/Summer 2012-Q9/Capstone/rubegoldberg-ws/res/jbullet-20101010/lib/lwjgl/native/windows"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

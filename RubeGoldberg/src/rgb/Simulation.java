@@ -47,7 +47,7 @@ public class Simulation {
 			SimpleShape ws = (SimpleShape) widget;
 			this.world.addRigidBody(ws.getRigidBody());
 		}
-		// NOTE: different widgets need to be added differently
+		// TODO: different widgets need to be added differently
 //		else if (widget instanceof CompoundShape) {
 //			CompoundShape cw = (CompoundShape) widget;
 //			for (SimpleShape simple : cw.getParts())
@@ -56,7 +56,12 @@ public class Simulation {
 	}
 	
 	public void stepSimulation(float seconds) {
+		updateWidgets();
 		this.world.stepSimulation(seconds);
+	}
+	
+	private void updateWidgets() {
+		// TODO: call update on all the widgets
 	}
 	
 	public void drawFrame() {

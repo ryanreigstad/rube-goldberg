@@ -2,7 +2,7 @@ package info;
 
 import rgb.widget.WidgetInfo;
 import rgb.widget.box.BoxWidget;
-import rgb.widget.box.BoxWidgetFactory;
+import rgb.widget.box.BoxWidgetPersistence;
 
 public class Info implements WidgetInfo<BoxWidget> {
 
@@ -17,7 +17,7 @@ public class Info implements WidgetInfo<BoxWidget> {
 	}
 
 	@Override
-	public Class<BoxWidgetFactory> getWidgetFactoryClass() {
-		return BoxWidgetFactory.class;
+	public Class<BoxWidgetPersistence> getWidgetPersistenceClass() {
+		return BoxWidgetPersistence.class;
 	}
 }

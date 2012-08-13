@@ -2,7 +2,7 @@ package info;
 
 import rgb.widget.WidgetInfo;
 import rgb.widget.sphere.SphereWidget;
-import rgb.widget.sphere.SphereWidgetFactory;
+import rgb.widget.sphere.SphereWidgetPersistence;
 
 public class Info implements WidgetInfo<SphereWidget> {
 
@@ -17,8 +17,8 @@ public class Info implements WidgetInfo<SphereWidget> {
 	}
 
 	@Override
-	public Class<SphereWidgetFactory> getWidgetFactoryClass() {
-		return SphereWidgetFactory.class;
+	public Class<SphereWidgetPersistence> getWidgetPersistenceClass() {
+		return SphereWidgetPersistence.class;
 	}
 
 }

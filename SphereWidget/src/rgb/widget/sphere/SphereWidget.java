@@ -40,6 +40,11 @@ public class SphereWidget extends RenderableBase implements PrimitiveShape {
 		this.vertexBufferId = bufferIds[0];
 		this.indexBufferId = bufferIds[1];
 	}
+	
+	@Override
+	public void update() {
+		// do nothing
+	}
 
 	@Override
 	public RigidBody getRigidBody() {

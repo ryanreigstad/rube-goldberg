@@ -67,8 +67,8 @@ public class Persistence {
 //		int widgetId = Integer.parseInt((String) widgetIdExpr.evaluate(widgetNode, XPathConstants.STRING));
 		String widgetClass = (String) widgetTypeExpr.evaluate(widgetNode, XPathConstants.STRING);
 		
-		WidgetInfo<? extends Widget> wi = widgetLibrary.getWidget(widgetClass);
-		return wi.getWidgetFactoryClass().newInstance().create(widgetNode);
+		WidgetInfo<? extends Widget> wi = widgetLibrary.getWidgetInfo(widgetClass);
+		return wi.getWidgetPersistenceClass().newInstance().create(widgetNode);
 	}
 	
 	private static Vector3f parseV3f(String v) {

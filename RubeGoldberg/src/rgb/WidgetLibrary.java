@@ -16,7 +16,7 @@ public class WidgetLibrary {
 		return this.widgets;
 	}
 	
-	public WidgetInfo<? extends Widget> getWidget(String clsName) {
+	public WidgetInfo<? extends Widget> getWidgetInfo(String clsName) {
 		for (WidgetInfo<? extends Widget> wi : this.widgets) {
 			if (wi.getWidgetClass().getName().equals(clsName))
 				return wi;

@@ -5,5 +5,5 @@ public interface WidgetInfo<T extends Widget> {
 	// public Image(?) getIcon();
 	
 	public Class<T> getWidgetClass();
-	public Class<? extends WidgetFactory<T>> getWidgetFactoryClass();
+	public Class<? extends WidgetPersistence<T>> getWidgetPersistenceClass();
 }
