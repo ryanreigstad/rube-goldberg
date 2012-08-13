@@ -1,4 +1,4 @@
-package rgb.draw;
+package rgb.gui;
 
 import javax.vecmath.Vector3f;
 

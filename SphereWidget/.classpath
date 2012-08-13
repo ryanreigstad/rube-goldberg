@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Widgets"/>
+	<classpathentry kind="lib" path="C:/Users/Ryan/Documents/Neumont/Summer 2012-Q9/Capstone/rubegoldberg-ws/res/jbullet-20101010/dist/jbullet.jar" sourcepath="C:/Users/Ryan/Documents/Neumont/Summer 2012-Q9/Capstone/rubegoldberg-ws/res/jbullet-20101010/src">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Users/Ryan/Documents/Neumont/Summer 2012-Q9/Capstone/rubegoldberg-ws/res/jbullet-20101010/dist/javadoc/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Ryan/Documents/Neumont/Summer 2012-Q9/Capstone/rubegoldberg-ws/res/jbullet-20101010/lib/vecmath/vecmath.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ryan/Documents/Neumont/Summer 2012-Q9/Capstone/rubegoldberg-ws/res/lwjgl-2.8.4/jar/lwjgl.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Ryan/Documents/Neumont/Summer 2012-Q9/Capstone/rubegoldberg-ws/res/lwjgl-2.8.4/jar/lwjgl_util.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
