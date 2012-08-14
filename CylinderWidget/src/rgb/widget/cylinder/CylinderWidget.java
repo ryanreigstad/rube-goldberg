@@ -1,31 +1,31 @@
-package rgb.widget.box;
+package rgb.widget.cylinder;
 
 import javax.vecmath.Vector3f;
 
 import org.lwjgl.opengl.GL11;
 
-import rgb.widget.physical.PrimitiveShape;
-import rgb.widget.renderable.RenderableBase;
-import rgb.widget.util.RigidBodyUtil;
-
-import com.bulletphysics.collision.shapes.BoxShape;
 import com.bulletphysics.collision.shapes.CollisionShape;
+import com.bulletphysics.collision.shapes.CylinderShapeX;
 import com.bulletphysics.dynamics.RigidBody;
 import com.bulletphysics.linearmath.MotionState;
 import com.bulletphysics.linearmath.Transform;
 
-public class BoxWidget extends RenderableBase implements PrimitiveShape {
+import rgb.widget.physical.PrimitiveShape;
+import rgb.widget.renderable.RenderableBase;
+import rgb.widget.util.RigidBodyUtil;
+
+public class CylinderWidget extends RenderableBase implements PrimitiveShape {
 	
 	protected RigidBody rigidBody;
 	
-	public BoxWidget(Vector3f location, Vector3f orientation, Vector3f halfExtents, float mass, float restitution, float friction) {
-		initRigidBody(location, orientation, halfExtents, mass, restitution, friction);
-		initBufferIds(halfExtents);
+	public CylinderWidget(Vector3f location, Vector3f orientation, float radius, float height, float mass, float restitution, float friction) {
+		this.initRigidBody(location, orientation, radius, height, mass, restitution, friction);
+		this.initBufferIds(radius, height);
 	}
 
-	private void initRigidBody(Vector3f location, Vector3f orientation, Vector3f halfExtents, float mass, float restitution, float friction) {
+	private void initRigidBody(Vector3f location, Vector3f orientation, float radius, float height, float mass, float restitution, float friction) {
 		MotionState motion = RigidBodyUtil.getDefaultMotionState(location, orientation);
-		CollisionShape shape = new BoxShape(halfExtents);
+		CollisionShape shape = new CylinderShapeX(new Vector3f(height / 2f, radius / 2f, radius / 2f));
 		Vector3f inertia = new Vector3f();
 		shape.calculateLocalInertia(mass, inertia);
 		
@@ -36,12 +36,12 @@ public class BoxWidget extends RenderableBase implements PrimitiveShape {
 		this.rigidBody.setUserPointer(this);
 	}
 
-	private void initBufferIds(Vector3f halfExtents) {
-		int[] bufferIds = BoxMeshBuilder.build(halfExtents);
+	private void initBufferIds(float radius, float height) {
+		int[] bufferIds = CylinderMeshBuilder.build(radius, height);
 		this.vertexBufferId = bufferIds[0];
 		this.indexBufferId = bufferIds[1];
 	}
-	
+
 	@Override
 	public void update() {
 		// do nothing
@@ -54,21 +54,22 @@ public class BoxWidget extends RenderableBase implements PrimitiveShape {
 
 	@Override
 	public int getVertexCount() {
-		return BoxMeshBuilder.getVertexCount();
+		return CylinderMeshBuilder.getVertexCount();
 	}
 
 	@Override
 	public int getIndexCount() {
-		return BoxMeshBuilder.getIndexCount();
+		return CylinderMeshBuilder.getIndexCount();
 	}
-	
+
 	@Override
 	public int getOpenGlDrawMode() {
 		return GL11.GL_QUADS;
 	}
-	
+
 	@Override
 	public Transform getWorldTransform() {
 		return this.rigidBody.getWorldTransform(new Transform());
 	}
+
 }

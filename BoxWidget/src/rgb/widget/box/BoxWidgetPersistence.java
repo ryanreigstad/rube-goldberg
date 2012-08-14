@@ -12,6 +12,11 @@ import rgb.widget.WidgetPersistence;
 import rgb.widget.util.PersistenceUtil;
 
 public class BoxWidgetPersistence implements WidgetPersistence<BoxWidget> {
+	
+	@Override
+	public BoxWidget create() {
+		return new BoxWidget(new Vector3f(), new Vector3f(), new Vector3f(0.5f, 0.5f, 0.5f), 1, 0.5f, 0.5f);
+	}
 
 	@Override
 	public BoxWidget create(Node node) {

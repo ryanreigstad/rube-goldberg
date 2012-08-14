@@ -12,6 +12,7 @@ import rgb.persistence.Persistence;
 
 public class Main {
 	public static void main(String[] args) throws LWJGLException {
+		
 		Renderer renderer = new Renderer(900, 600, 45f);
 		renderer.setCamera(new Camera(new Vector3f(0, 0, 9), new Vector3f()));
 		

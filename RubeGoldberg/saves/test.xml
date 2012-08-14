@@ -17,9 +17,18 @@
       <param name="restitution">0.8</param>
       <param name="friction">0.5</param>
     </widget>
+    <widget id="3" type="rgb.widget.cylinder.CylinderWidget">
+      <param name="location">2, 4, 1.5</param>
+      <param name="orientation">0, 0, 0</param>
+      <param name="radius">0.5</param>
+      <param name="height">1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.6</param>
+      <param name="friction">0.5</param>
+    </widget>
     <widget id="2" type="rgb.widget.box.BoxWidget">
       <param name="location">0, -2, 0</param>
-      <param name="orientation">0, 0, 0</param>
+      <param name="orientation">0, 0, 0.01</param>
       <param name="halfExtents">4, 0.25, 4</param>
       <param name="mass">0</param>
       <param name="restitution">0.4</param>

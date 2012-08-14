@@ -32,6 +32,7 @@ public class SphereWidget extends RenderableBase implements PrimitiveShape {
 		this.rigidBody = new RigidBody(mass, motion, shape, inertia);
 		this.rigidBody.setRestitution(restitution);
 		this.rigidBody.setFriction(friction);
+		this.rigidBody.setSleepingThresholds(0.01f, 0.01f);
 		this.rigidBody.setUserPointer(this);
 	}
 
