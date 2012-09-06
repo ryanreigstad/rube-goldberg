@@ -1,5 +1,6 @@
 package rgb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import rgb.widget.Widget;
@@ -22,5 +23,12 @@ public class WidgetLibrary {
 				return wi;
 		}
 		return null;
+	}
+	
+	public List<String> getWidgetNames() {
+		List<String> result = new ArrayList<>();
+		for (WidgetInfo<? extends Widget> w : this.widgets)
+			result.add(w.getName());
+		return result;
 	}
 }

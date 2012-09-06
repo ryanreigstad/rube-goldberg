@@ -4,8 +4,7 @@ import javax.vecmath.Vector3f;
 
 public class Camera {
 	public Camera() {
-		location = new Vector3f();
-		orientation = new Vector3f();
+		this(new Vector3f(), new Vector3f());
 	}
 	
 	public Camera(Vector3f location, Vector3f orientation) {

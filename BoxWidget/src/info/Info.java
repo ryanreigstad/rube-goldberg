@@ -20,4 +20,9 @@ public class Info implements WidgetInfo<BoxWidget> {
 	public Class<BoxWidgetPersistence> getWidgetPersistenceClass() {
 		return BoxWidgetPersistence.class;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getName() + " Shape";
+	}
 }

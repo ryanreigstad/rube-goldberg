@@ -43,10 +43,9 @@ public class Persistence {
 		XPathExpression worldSizeExpr = xpath.compile("/simulation/world/@size");
 		XPathExpression worldGravExpr = xpath.compile("/simulation/world/@gravity");
 		
-		Simulation simulation = new Simulation();
 		Vector3f size = parseV3f((String) worldSizeExpr.evaluate(root, XPathConstants.STRING));
 		Vector3f grav = parseV3f((String) worldGravExpr.evaluate(root, XPathConstants.STRING));
-		simulation.initWorld(size, grav);
+		Simulation simulation = new Simulation(size, grav);
 		
 		XPathExpression widgetExpr = xpath.compile("/simulation/widgets/*");
 		NodeList widgetNodes = (NodeList) widgetExpr.evaluate(root, XPathConstants.NODESET);
@@ -60,15 +59,19 @@ public class Persistence {
 	}
 	
 	private static Widget buildWidget(Node widgetNode, WidgetLibrary widgetLibrary, XPath xpath) throws Exception {
-//		XPathExpression widgetIdExpr = xpath.compile("./@id");
+		XPathExpression widgetIdExpr = xpath.compile("./@id");
+		XPathExpression widgetNameExpr = xpath.compile("./@name");
 		XPathExpression widgetTypeExpr = xpath.compile("./@type");
 
-		// TODO: associate the widgetId with the widget so other widgets can reference them
-//		int widgetId = Integer.parseInt((String) widgetIdExpr.evaluate(widgetNode, XPathConstants.STRING));
+		int widgetId = Integer.parseInt((String) widgetIdExpr.evaluate(widgetNode, XPathConstants.STRING));
+		String widgetName = (String) widgetNameExpr.evaluate(widgetNode, XPathConstants.STRING);
 		String widgetClass = (String) widgetTypeExpr.evaluate(widgetNode, XPathConstants.STRING);
 		
 		WidgetInfo<? extends Widget> wi = widgetLibrary.getWidgetInfo(widgetClass);
-		return wi.getWidgetPersistenceClass().newInstance().create(widgetNode);
+		Widget w = wi.getWidgetPersistenceClass().newInstance().create(widgetNode);
+		w.setId(widgetId);
+		w.setName(widgetName);
+		return w;
 	}
 	
 	private static Vector3f parseV3f(String v) {

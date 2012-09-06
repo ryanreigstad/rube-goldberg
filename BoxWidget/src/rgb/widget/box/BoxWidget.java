@@ -17,6 +17,8 @@ import com.bulletphysics.linearmath.Transform;
 public class BoxWidget extends RenderableBase implements PrimitiveShape {
 	
 	protected RigidBody rigidBody;
+	protected int id;
+	protected String name;
 	
 	public BoxWidget(Vector3f location, Vector3f orientation, Vector3f halfExtents, float mass, float restitution, float friction) {
 		initRigidBody(location, orientation, halfExtents, mass, restitution, friction);
@@ -70,5 +72,25 @@ public class BoxWidget extends RenderableBase implements PrimitiveShape {
 	@Override
 	public Transform getWorldTransform() {
 		return this.rigidBody.getWorldTransform(new Transform());
+	}
+
+	@Override
+	public int getId() {
+		return this.id;
+	}
+	
+	@Override
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public String getName() {
+		return this.name;
+	}
+	
+	@Override
+	public void setName(String name) {
+		this.name = name;
 	}
 }

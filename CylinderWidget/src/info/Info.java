@@ -20,5 +20,10 @@ public class Info implements WidgetInfo<CylinderWidget> {
 	public Class<CylinderWidgetPersistence> getWidgetPersistenceClass() {
 		return CylinderWidgetPersistence.class;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getName() + " Shape";
+	}
 
 }

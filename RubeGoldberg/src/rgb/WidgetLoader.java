@@ -1,6 +1,7 @@
 package rgb;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -20,10 +21,10 @@ public class WidgetLoader {
 		}
 	}
 	
-	public static List<WidgetInfo<? extends Widget>> loadWidgets() {
-		File widgetFolder = new File("widgets");
+	public static List<WidgetInfo<? extends Widget>> loadWidgets(String location) throws FileNotFoundException {
+		File widgetFolder = new File(location);
 		if (!widgetFolder.exists()) {
-			throw new RuntimeException("There is no widgets folder");
+			throw new FileNotFoundException("That folder doesn't exist");
 		}
 		
 		File[] widgets = widgetFolder.listFiles();

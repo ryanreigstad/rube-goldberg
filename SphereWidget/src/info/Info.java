@@ -20,5 +20,10 @@ public class Info implements WidgetInfo<SphereWidget> {
 	public Class<SphereWidgetPersistence> getWidgetPersistenceClass() {
 		return SphereWidgetPersistence.class;
 	}
+	
+	@Override
+	public String toString() {
+		return this.getName() + " Shape";
+	}
 
 }
