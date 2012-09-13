@@ -18,7 +18,7 @@ import de.matthiasmann.twl.theme.ThemeManager;
 public class Application implements Runnable {
 	public static void main(String[] args) {
 		try {
-			new Application(900, 500).run();
+			new Application(1200, 600).run();
 		} catch (Error ex) {
 			ex.printStackTrace();
 		} catch (Throwable t) {
@@ -130,8 +130,7 @@ public class Application implements Runnable {
 	}
 	
 	public void saveSimulation(File sim) {
-		// TODO: save simulation
-		System.out.println("TODO: save simulation");
+		Persistence.saveSimulation(sim, this.appGui.getSimulationView().getSimulation(), this.widgets);
 	}
 	
 	public WidgetLibrary getWidgetLibrary() {

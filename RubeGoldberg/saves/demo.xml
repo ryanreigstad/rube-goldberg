@@ -1,0 +1,286 @@
+<?xml version="1.0"?>
+<simulation>
+  <world size="2024, 2024, 2024" gravity="0, -9.8, 0" />
+  <widgets>
+    <widget id="0" name="main platform" type="rgb.widget.box.BoxWidget">
+      <param name="location">0,-0.5,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">11.5,0.5,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="1" name="ball bounce box" type="rgb.widget.box.BoxWidget">
+      <param name="location">-12.5,0,0</param>
+      <param name="orientation">0,0,-0.5</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">1,0.5,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="2" name="ball1" type="rgb.widget.sphere.SphereWidget">
+      <param name="location">-12.8,4,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="radius">0.5</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="3" name="domino1" type="rgb.widget.box.BoxWidget">
+      <param name="location">-10.5,1,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,1,1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="4" name="domino2" type="rgb.widget.box.BoxWidget">
+      <param name="location">-9,1,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,1,1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="5" name="domino3" type="rgb.widget.box.BoxWidget">
+      <param name="location">-7.5,1.2,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,1.2,1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="6" name="stair1" type="rgb.widget.box.BoxWidget">
+      <param name="location">-6,0.25,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.75,0.25,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="7" name="domino4" type="rgb.widget.box.BoxWidget">
+      <param name="location">-6,1.9,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,1.4,1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="8" name="stair2" type="rgb.widget.box.BoxWidget">
+      <param name="location">-4.5,0.5,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.75,0.5,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="9" name="domino5" type="rgb.widget.box.BoxWidget">
+      <param name="location">-4.5,2.6,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,1.6,1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="10" name="stair3" type="rgb.widget.box.BoxWidget">
+      <param name="location">-3,0.75,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.75,0.75,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="11" name="domino6" type="rgb.widget.box.BoxWidget">
+      <param name="location">-3,3.3,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,1.8,1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="12" name="stair4" type="rgb.widget.box.BoxWidget">
+      <param name="location">-1.5,1,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.75,1,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="13" name="domino7" type="rgb.widget.box.BoxWidget">
+      <param name="location">-1.5,4,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,2,1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="14" name="ball platform" type="rgb.widget.box.BoxWidget">
+      <param name="location">0.5,4.75,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,0.25,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="15" name="ball2" type="rgb.widget.sphere.SphereWidget">
+      <param name="location">0.5,5.5,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="radius">0.5</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="16" name="ramp1" type="rgb.widget.box.BoxWidget">
+      <param name="location">2,4.5,0</param>
+      <param name="orientation">0,0,-0.2</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">1.5,0.125,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="17" name="ramp2" type="rgb.widget.box.BoxWidget">
+      <param name="location">3.5,2.9,0</param>
+      <param name="orientation">0,0,0.25</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">2.5,0.125,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="18" name="ramp2 wall" type="rgb.widget.box.BoxWidget">
+      <param name="location">6,3.75,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.125,0.25,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="19" name="ramp3" type="rgb.widget.box.BoxWidget">
+      <param name="location">0.7,0.8,0</param>
+      <param name="orientation">0,0,-0.4</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">1.5,0.125,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="20" name="ramp4" type="rgb.widget.box.BoxWidget">
+      <param name="location">3,0.5,0</param>
+      <param name="orientation">0,0,0.30</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">1,0.125,1</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="21" name="domino8" type="rgb.widget.box.BoxWidget">
+      <param name="location">5,1,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,1,1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="22" name="domino9" type="rgb.widget.box.BoxWidget">
+      <param name="location">6.5,1,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,1,1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="23" name="domino10" type="rgb.widget.box.BoxWidget">
+      <param name="location">8,1,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,1,1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="24" name="domino11" type="rgb.widget.box.BoxWidget">
+      <param name="location">9.5,1,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0.25,1,1</param>
+      <param name="mass">1</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <!--
+    <widget id="0" name="" type="rgb.widget.box.BoxWidget">
+      <param name="location">0,0,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="halfExtents">0,0,0</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="0" name="" type="rgb.widget.sphere.SphereWidget">
+      <param name="location">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="radius">0</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    <widget id="0" name="" type="rgb.widget.cylinder.CylinderWidget">
+      <param name="location">0,0,0</param>
+      <param name="orientation">0,0,0</param>
+      <param name="linearVeloctiy">0,0,0</param>
+      <param name="angularVelocity">0,0,0</param>
+      <param name="radius">0</param>
+      <param name="height">0</param>
+      <param name="mass">0</param>
+      <param name="restitution">0.5</param>
+      <param name="friction">0.5</param>
+    </widget>
+    -->
+  </widgets>
+</simulation>

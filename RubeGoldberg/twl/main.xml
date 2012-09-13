@@ -956,8 +956,12 @@
     	<theme name="simulationview" ref="-defaults">
     		<param name="background"><image>simulationview.background</image></param>
     	</theme>
-    	<theme name="propertyeditor" ref="-defaults">
+    	<theme name="scrollpane" ref="scrollpane">
     		<param name="background"><image>button.background</image></param>
+	    	<theme name="propertyeditor" ref="-defaults">
+	    		<theme name="propertyline" ref="-defaults">
+	    		</theme>
+	    	</theme>
     	</theme>
     </theme>
     

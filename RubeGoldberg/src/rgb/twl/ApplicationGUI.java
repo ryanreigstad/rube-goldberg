@@ -12,6 +12,7 @@ import de.matthiasmann.twl.Button;
 import de.matthiasmann.twl.ComboBox;
 import de.matthiasmann.twl.ListBox;
 import de.matthiasmann.twl.Menu;
+import de.matthiasmann.twl.ScrollPane;
 import de.matthiasmann.twl.Widget;
 import de.matthiasmann.twl.model.SimpleChangableListModel;
 
@@ -33,7 +34,8 @@ public class ApplicationGUI extends Widget {
 	private Application app;
 	private ListBox<WidgetInfo<? extends rgb.widget.Widget>> widgetTypes;
 	private Widget menu;
-	private ComboBox<String> widgetSelector;
+	private ComboBox<rgb.widget.Widget> widgetSelector;
+	private ScrollPane propertiesPane;
 	private PropertyEditor properties;
 	private Button[] controls;
 	private SimulationView simulation;
@@ -94,7 +96,8 @@ public class ApplicationGUI extends Widget {
 	
 	private void initPropertyEditor() {
 		this.properties = new PropertyEditor();
-		this.add(this.properties);
+		this.propertiesPane = new ScrollPane(this.properties);
+		this.add(this.propertiesPane);
 	}
 	
 	private void initControls() {
@@ -146,22 +149,24 @@ public class ApplicationGUI extends Widget {
 	
 	@Override
 	protected void layout() {
-		this.menu.setPosition(10, 0);
+		this.menu.setPosition(5, 0);
 		this.menu.setSize(this.getInnerWidth(), 20);
 		
-		final int sideW = 150;
+		final int sideW = 300;
 		
-		this.widgetTypes.setPosition(20, 30);
-		this.widgetTypes.setSize(sideW, 200);
+		this.widgetTypes.setPosition(10, 30);
+		this.widgetTypes.setSize(sideW, 300);
 		
-		this.widgetSelector.setPosition(20, 240);
+		this.widgetSelector.setPosition(10, 340);
 		this.widgetSelector.setSize(sideW, 20);
-		
-		this.properties.setPosition(20, 270);
+
+		this.propertiesPane.setPosition(10, 370);
+		this.propertiesPane.setSize(sideW, 210);
+		this.properties.setPosition(10, 370);
 		this.properties.setSize(sideW, 210);
 		
-		this.simulation.setPosition(sideW + 40, 30);
-		this.simulation.setSize(this.getInnerWidth() - 210, this.getInnerHeight() - 80);
+		this.simulation.setPosition(sideW + 20, 30);
+		this.simulation.setSize(this.getInnerWidth() - sideW - 30, this.getInnerHeight() - 80);
 		
 		this.layoutControls();
 	}
@@ -179,10 +184,9 @@ public class ApplicationGUI extends Widget {
 	}
 	
 	public void updateWidgetSelector() {
-		List<String> names = new ArrayList<>();
-		for (rgb.widget.Widget w : this.simulation.getSimulation().getWidgets())
-			names.add(w.getName());
-		this.widgetSelector.setModel(new SimpleChangableListModel<>(names));
+		List<rgb.widget.Widget> ws = new ArrayList<>(this.simulation.getSimulation().getWidgets());
+		ws.add(0, this.simulation.getCamera());
+		this.widgetSelector.setModel(new SimpleChangableListModel<>(ws));
 	}
 
 	public void setSimulation(Simulation sim) {
@@ -211,5 +215,9 @@ public class ApplicationGUI extends Widget {
 	
 	public void saveSimulation(File sim) {
 		this.app.saveSimulation(sim);
+	}
+
+	public void updateProperties(rgb.widget.Widget widget) {
+		this.properties.init(widget);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import rgb.widget.Widget;
 import rgb.widget.WidgetInfo;
+import rgb.widget.WidgetPersistence;
 
 public class WidgetLibrary {
 	public WidgetLibrary(List<WidgetInfo<? extends Widget>> widgets) {
@@ -23,6 +24,10 @@ public class WidgetLibrary {
 				return wi;
 		}
 		return null;
+	}
+	
+	public Class<? extends WidgetPersistence<? extends Widget>> getWidgetPersistenceClass(Class<? extends Widget> cls) {
+		return this.getWidgetInfo(cls.getName()).getWidgetPersistenceClass();
 	}
 	
 	public List<String> getWidgetNames() {

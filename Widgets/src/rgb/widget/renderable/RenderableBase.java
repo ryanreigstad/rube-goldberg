@@ -1,6 +1,7 @@
 package rgb.widget.renderable;
 
-import java.nio.IntBuffer;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.*;
 
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
@@ -9,9 +10,6 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ARBVertexBufferObject;
 
 import com.bulletphysics.linearmath.Transform;
-
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL12.*;
 
 public abstract class RenderableBase implements Renderable {
 	
@@ -26,13 +24,13 @@ public abstract class RenderableBase implements Renderable {
 	@Override
 	protected void finalize() throws Throwable
 	{
-		IntBuffer buffers = BufferUtils.createIntBuffer(2);
-		buffers.put(this.vertexBufferId);
-		buffers.put(this.indexBufferId);
-		
-    	ARBVertexBufferObject.glDeleteBuffersARB(buffers);
+    	disposeBuffers(this.vertexBufferId, this.indexBufferId);
 	
 	    super.finalize();
+	}
+	
+	protected static void disposeBuffers(int ... buffers) {
+		ARBVertexBufferObject.glDeleteBuffersARB(BufferUtils.createIntBuffer(buffers.length).put(buffers));
 	}
 	
 	public void render() {
@@ -64,7 +62,7 @@ public abstract class RenderableBase implements Renderable {
 	    }
 	}
 	
-	private static Vector3f toAngles(Quat4f quat) {
+	public static Vector3f toAngles(Quat4f quat) {
 		double x = Math.atan2(2*(quat.w*quat.x + quat.y*quat.z), 1 - 2*(Math.pow(quat.x, 2) + Math.pow(quat.y, 2)));
 		double y = Math.asin(2*(quat.w*quat.y + quat.x*quat.z));
 		double z = Math.atan2(2*(quat.w*quat.z + quat.x*quat.y), 1 - 2*(Math.pow(quat.y, 2) + Math.pow(quat.z, 2)));

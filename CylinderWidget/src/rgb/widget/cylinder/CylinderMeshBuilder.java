@@ -23,8 +23,8 @@ class CylinderMeshBuilder {
 		FloatBuffer vertices = BufferUtils.createFloatBuffer(getVertexCount() * 3);
 		IntBuffer indices = BufferUtils.createIntBuffer(getIndexCount());
 		
-		vertices.put(new float[] {-radius, 0, 0});
-		for (float x = -radius; x <= radius; x += 2 * radius) {
+		vertices.put(new float[] {-height, 0, 0});
+		for (float x = -height; x <= height; x += 2 * height) {
 			for (int v = 0; v < verticesPerSide; v++) {
 				float a = (float) (v * Math.PI * 2 / (float) verticesPerSide);
 				float y = (float) Math.sin(a) * radius;
@@ -33,7 +33,7 @@ class CylinderMeshBuilder {
 				vertices.put(new float[] {x, y, z});
 			}
 		}
-		vertices.put(new float[] {radius, 0, 0});
+		vertices.put(new float[] {height, 0, 0});
 		vertices.flip();
 		
 		for (int i = 1; i <= verticesPerSide; i++) {

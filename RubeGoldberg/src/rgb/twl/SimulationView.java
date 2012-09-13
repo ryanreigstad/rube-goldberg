@@ -16,7 +16,7 @@ import de.matthiasmann.twl.Widget;
 
 public class SimulationView extends Widget {
 	public SimulationView(int padding) {
-		this(padding, new Camera(new Vector3f(0, 0, 10), new Vector3f()));
+		this(padding, new Camera(new Vector3f(-.5f, 3f, 20f), new Vector3f()));
 	}
 	
 	public SimulationView(int padding, Camera cam) {
@@ -52,6 +52,9 @@ public class SimulationView extends Widget {
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		
 		glTranslatef(-this.camera.getLocation().x, -this.camera.getLocation().y, -this.camera.getLocation().z);
+		glRotatef(this.camera.getOrientation().x, 1, 0, 0);
+		glRotatef(this.camera.getOrientation().y, 0, 1, 0);
+		glRotatef(this.camera.getOrientation().z, 0, 0, 1);
 		glColor3f(1, 1, 1);
 		
 		for (CollisionObject obj : sim.getWorld().getCollisionObjectArray()) {

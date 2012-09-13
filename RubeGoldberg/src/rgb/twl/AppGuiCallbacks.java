@@ -75,6 +75,14 @@ class AppGuiCallbacks {
 				return;
 			}
 			this.lastFile = (File) files[0];
+			if (lastFile.exists())
+				this.lastFile.delete();
+			try {
+				this.lastFile.createNewFile();
+			} catch (Exception e) {
+				e.printStackTrace();
+				break;
+			}
 			this.gui.saveSimulation(this.lastFile);
 			break;
 		default:
@@ -97,7 +105,7 @@ class AppGuiCallbacks {
 
 	public void newMenuOptionCallback() {
 		this.gui.pauseSimulation();
-		this.gui.loadSimulation(null);
+		this.gui.loadSimulation(this.lastFile = null);
 	}
 
 	public void saveMenuOptionCallback() {
@@ -146,6 +154,7 @@ class AppGuiCallbacks {
 			widget.setName("new widget " + (this.gui.getSimulationView().getSimulation().getWidgets().size() + 1));
 		}
 		if (widget.getId() == 0) {
+			// TODO: ensure unique
 			widget.setId(this.gui.getSimulationView().getSimulation().getWidgets().size() + 1);
 		}
 		
@@ -153,12 +162,12 @@ class AppGuiCallbacks {
 		this.gui.updateWidgetSelector();
 	}
 	
-	public void createCallback(final ComboBox<String> widgets) {
+	public void createCallback(final ComboBox<rgb.widget.Widget> widgets) {
 		widgets.addCallback(new Runnable() {
 			@Override
 			public void run() {
-				if (widgets.getSelected() >= 0)
-					System.out.println(widgets.getModel().getEntry(widgets.getSelected()));
+				if (widgets.getSelected() != -1)
+					AppGuiCallbacks.this.gui.updateProperties(widgets.getModel().getEntry(widgets.getSelected()));
 			}
 		});
 	}
